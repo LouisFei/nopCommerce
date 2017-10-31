@@ -19,16 +19,24 @@ namespace Nop.Data
     {
         #region Ctor
 
+        /// <summary>
+        /// 实例化（数据库）对象上下文
+        /// </summary>
+        /// <param name="nameOrConnectionString"></param>
         public NopObjectContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
             //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
         }
-        
+
         #endregion
 
         #region Utilities
 
+        /// <summary>
+        /// 将 CLR 类映射到数据库架构
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //dynamically load all configuration
@@ -197,6 +205,7 @@ namespace Nop.Data
 
         /// <summary>
         /// Detach an entity
+        /// 排除一个实体
         /// </summary>
         /// <param name="entity">Entity</param>
         public void Detach(object entity)

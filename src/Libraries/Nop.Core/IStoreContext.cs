@@ -4,6 +4,7 @@ namespace Nop.Core
 {
     /// <summary>
     /// Store context
+    /// 商店上下文
     /// </summary>
     public interface IStoreContext
     {

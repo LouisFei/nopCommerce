@@ -15,6 +15,7 @@ namespace Nop.Services.Configuration
 {
     /// <summary>
     /// Setting manager
+    /// …Ë÷√π‹¿Ì
     /// </summary>
     public partial class SettingService : ISettingService
     {

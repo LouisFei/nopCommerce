@@ -43,6 +43,7 @@ namespace Nop.Admin.Controllers
         
         /// <summary>
         /// Access denied view
+        /// 访问被拒绝的页面
         /// </summary>
         /// <returns>Access denied view</returns>
         protected virtual ActionResult AccessDeniedView()

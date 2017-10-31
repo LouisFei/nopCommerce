@@ -2,6 +2,7 @@
 namespace Nop.Core.Events
 {
     /// <summary>
+    /// 实体更新容器
     /// A container for entities that are updated.
     /// </summary>
     /// <typeparam name="T"></typeparam>

@@ -8,24 +8,37 @@ namespace Nop.Services.Authentication
 {
     /// <summary>
     /// Authentication service
+    /// 身份验证服务
     /// </summary>
     public partial class FormsAuthenticationService : IAuthenticationService
     {
         #region Fields
 
+        /// <summary>
+        /// 当前请求上下文
+        /// </summary>
         private readonly HttpContextBase _httpContext;
+        /// <summary>
+        /// 用户服务
+        /// </summary>
         private readonly ICustomerService _customerService;
+        /// <summary>
+        /// 用户设置
+        /// </summary>
         private readonly CustomerSettings _customerSettings;
+        /// <summary>
+        /// 身份验证票证到期前的时间量
+        /// </summary>
         private readonly TimeSpan _expirationTimeSpan;
 
         private Customer _cachedCustomer;
 
         #endregion
 
-        #region Ctor
+        #region Ctor 实例化一个身份验证服务对象
 
         /// <summary>
-        /// Ctor
+        /// Ctor 实例化一个身份验证服务对象
         /// </summary>
         /// <param name="httpContext">HTTP context</param>
         /// <param name="customerService">Customer service</param>
@@ -44,22 +57,30 @@ namespace Nop.Services.Authentication
         #region Utilities
 
         /// <summary>
+        /// 获得当前登录的用户实体
         /// Get authenticated customer
         /// </summary>
-        /// <param name="ticket">Ticket</param>
+        /// <param name="ticket">Ticket 登录验证票据</param>
         /// <returns>Customer</returns>
         protected virtual Customer GetAuthenticatedCustomerFromTicket(FormsAuthenticationTicket ticket)
         {
             if (ticket == null)
+            {
                 throw new ArgumentNullException("ticket");
+            }
 
+            //用户数据
             var usernameOrEmail = ticket.UserData;
 
             if (String.IsNullOrWhiteSpace(usernameOrEmail))
+            {
                 return null;
+            }
+
             var customer = _customerSettings.UsernamesEnabled
                 ? _customerService.GetCustomerByUsername(usernameOrEmail)
                 : _customerService.GetCustomerByEmail(usernameOrEmail);
+
             return customer;
         }
 
@@ -69,6 +90,7 @@ namespace Nop.Services.Authentication
 
         /// <summary>
         /// Sign in
+        /// 登录
         /// </summary>
         /// <param name="customer">Customer</param>
         /// <param name="createPersistentCookie">A value indicating whether to create a persistent cookie</param>
@@ -106,6 +128,7 @@ namespace Nop.Services.Authentication
 
         /// <summary>
         /// Sign out
+        /// 退出
         /// </summary>
         public virtual void SignOut()
         {
@@ -115,6 +138,7 @@ namespace Nop.Services.Authentication
 
         /// <summary>
         /// Get authenticated customer
+        /// 获得当前登录用户实体
         /// </summary>
         /// <returns>Customer</returns>
         public virtual Customer GetAuthenticatedCustomer()

@@ -9,9 +9,15 @@ using Nop.Web.Framework.Mvc;
 
 namespace Nop.Admin.Models.Catalog
 {
+    /// <summary>
+    /// 商品分类视图模型
+    /// </summary>
     [Validator(typeof(CategoryValidator))]
     public partial class CategoryModel : BaseNopEntityModel, ILocalizedModel<CategoryLocalizedModel>
     {
+        /// <summary>
+        /// 实例化商品分类视图模型
+        /// </summary>
         public CategoryModel()
         {
             if (PageSize < 1)

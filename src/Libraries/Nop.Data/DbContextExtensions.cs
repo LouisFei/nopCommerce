@@ -9,6 +9,9 @@ using Nop.Core;
 
 namespace Nop.Data
 {
+    /// <summary>
+    /// 数据库操作接口扩展
+    /// </summary>
     public static class DbContextExtensions
     {
         #region Utilities
@@ -112,6 +115,7 @@ namespace Nop.Data
         }
 
         /// <summary>
+        /// 获得实体的数据库表名
         /// Get table name of entity
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>

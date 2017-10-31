@@ -47,6 +47,9 @@ namespace Nop.Web.Controllers
 
         private readonly IAddressModelFactory _addressModelFactory;
         private readonly ICustomerModelFactory _customerModelFactory;
+        /// <summary>
+        /// 身份验证服务
+        /// </summary>
         private readonly IAuthenticationService _authenticationService;
         private readonly DateTimeSettings _dateTimeSettings;
         private readonly TaxSettings _taxSettings;
@@ -70,10 +73,16 @@ namespace Nop.Web.Controllers
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IOpenAuthenticationService _openAuthenticationService;
         private readonly IWebHelper _webHelper;
+        /// <summary>
+        /// 用户活动服务
+        /// </summary>
         private readonly ICustomerActivityService _customerActivityService;
         private readonly IAddressAttributeParser _addressAttributeParser;
         private readonly IAddressAttributeService _addressAttributeService;
         private readonly IStoreService _storeService;
+        /// <summary>
+        /// 事件发布器
+        /// </summary>
         private readonly IEventPublisher _eventPublisher;
 
         private readonly MediaSettings _mediaSettings;
@@ -309,9 +318,11 @@ namespace Nop.Web.Controllers
                             : _customerService.GetCustomerByEmail(model.Email);
 
                         //migrate shopping cart
+                        //迁移购物车数据（把匿名状态的购物车数据，迁移到当前登录用户的购物车中）
                         _shoppingCartService.MigrateShoppingCart(_workContext.CurrentCustomer, customer, true);
 
                         //sign in new customer
+                        //新用户登录
                         _authenticationService.SignIn(customer, model.RememberMe);
 
                         //raise event       
@@ -323,6 +334,7 @@ namespace Nop.Web.Controllers
                         if (String.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
                             return RedirectToRoute("HomePage");
 
+                        //登录成功，跳转到首页
                         return Redirect(returnUrl);
                     }
                     case CustomerLoginResults.CustomerNotExist:

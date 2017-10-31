@@ -12,7 +12,12 @@ namespace Nop.Core.Data
     {
         protected const char separator = ':';
         protected const string filename = "Settings.txt";
-               
+
+        /// <summary>
+        /// 实例化数据库连接设置对象
+        /// </summary>
+        public DataSettingsManager() { }
+
         /// <summary>
         /// Parse settings
         /// 解析数据库连接字符串

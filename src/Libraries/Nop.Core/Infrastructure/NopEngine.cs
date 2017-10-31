@@ -43,23 +43,34 @@ namespace Nop.Core.Infrastructure
 
         /// <summary>
         /// Register dependencies
-        /// 注册依赖
+        /// 注册依赖（基于Autofac依赖注入框架）
         /// </summary>
         /// <param name="config">Config</param>
         protected virtual void RegisterDependencies(NopConfig config)
         {
-            //容器生成器
+            /*
+             1、ContainerBuilder：组件通过它来进行注册。
+             2、组件，对象需要从组件中来获取。
+             3、哪些元素可以作为组件：Lambda表达式，一个类型，一个预编译的实例，实例类型所在的程序集。
+             4、容器：ContainerBuilder的Build()方法可以创建容器，从容器的Resolve()方法能够获得对象。
+             5、为指定组件服务是某一接口：As()方法将用于注册时指定。
+             6、组件的依赖关系：组件的依赖关系主要通过接口实现。
+             */
+
+            //创建组件容器
             var builder = new ContainerBuilder();
             
+            //注册依赖
             //dependencies
             var typeFinder = new WebAppTypeFinder();
+
+            //注册对象实例，并指定作为单例使用。
             builder.RegisterInstance(config).As<NopConfig>().SingleInstance(); //Nop配置
             builder.RegisterInstance(this).As<IEngine>().SingleInstance(); //引擎
-            //ITypeFinder接口用WebAppTypeFinder的单例对象注册绑定。
             builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance(); //类型发现器
 
             //register dependencies provided by other assemblies
-            //查找所有实现了接口IDependencyRegistrar的类。
+            //查找所有依赖注册具体实现类。然后实例化他们。调用他们的依赖注册方法。
             var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
             var drInstances = new List<IDependencyRegistrar>();
             foreach (var drType in drTypes)
@@ -72,7 +83,7 @@ namespace Nop.Core.Infrastructure
             drInstances = drInstances.AsQueryable().OrderBy(t => t.Order).ToList();
             foreach (var dependencyRegistrar in drInstances)
             {
-                //依次调用实现IDependencyRegistrar接口的类的方法Register
+                //执行依赖注册
                 dependencyRegistrar.Register(builder, typeFinder, config);
             }
 
@@ -81,7 +92,21 @@ namespace Nop.Core.Infrastructure
 
             //set dependency resolver
             // ???
+            //使用指定的依赖关系解析程序接口，为依赖关系解析程序提供一个注册点。
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            //DependencyResolver
+            //为实现 IDependencyResolver 或常用服务定位器 IServiceLocator 接口的依赖关系解析程序提供一个注册点。
+
+
+            //Autofac.Integration.WebApi;
+            //// Set the dependency resolver for Web API.
+            //var webApiResolver = new AutofacWebApiDependencyResolver(container);
+            //GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
+
+            //// Set the dependency resolver for MVC.
+            //var resolver = new AutofacDependencyResolver(container);
+            //DependencyResolver.SetResolver(resolver);
+
         }
 
         /// <summary>
@@ -148,6 +173,7 @@ namespace Nop.Core.Infrastructure
 
         /// <summary>
         ///  Resolve dependency
+        ///  获得注册的依赖组件
         /// </summary>
         /// <param name="type">Type</param>
         /// <returns></returns>
@@ -158,6 +184,7 @@ namespace Nop.Core.Infrastructure
         
         /// <summary>
         /// Resolve dependencies
+        /// 获得多个依赖组件
         /// </summary>
         /// <typeparam name="T">T</typeparam>
         /// <returns></returns>
@@ -172,6 +199,7 @@ namespace Nop.Core.Infrastructure
 
         /// <summary>
         /// Container manager
+        /// 容器封装器
         /// </summary>
         public virtual ContainerManager ContainerManager
         {

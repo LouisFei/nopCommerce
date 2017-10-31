@@ -31,6 +31,7 @@ using WebGrease.Css.Extensions;
 namespace Nop.Web.Factories
 {
     /// <summary>
+    /// 用户模型工厂
     /// Represents the customer model factory
     /// </summary>
     public partial class CustomerModelFactory : ICustomerModelFactory
@@ -49,6 +50,9 @@ namespace Nop.Web.Factories
         private readonly ICustomerAttributeService _customerAttributeService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly RewardPointsSettings _rewardPointsSettings;
+        /// <summary>
+        /// 用户设置
+        /// </summary>
         private readonly CustomerSettings _customerSettings;
         private readonly AddressSettings _addressSettings;
         private readonly ForumSettings _forumSettings;
@@ -63,6 +67,10 @@ namespace Nop.Web.Factories
         private readonly IReturnRequestService _returnRequestService;
 
         private readonly MediaSettings _mediaSettings;
+
+        /// <summary>
+        /// 验证码设置
+        /// </summary>
         private readonly CaptchaSettings _captchaSettings;
         private readonly SecuritySettings _securitySettings;
         private readonly ExternalAuthenticationSettings _externalAuthenticationSettings;
@@ -502,7 +510,7 @@ namespace Nop.Web.Factories
         /// 准备登录视图模型
         /// Prepare the login model
         /// </summary>
-        /// <param name="checkoutAsGuest">Whether to checkout as guest is enabled</param>
+        /// <param name="checkoutAsGuest">Whether to checkout as guest is enabled 是否启用游客</param>
         /// <returns>Login model</returns>
         public virtual LoginModel PrepareLoginModel(bool? checkoutAsGuest)
         {

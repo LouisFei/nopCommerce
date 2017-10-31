@@ -86,6 +86,7 @@ namespace Nop.Services.Customers
         Customer GetCustomerByGuid(Guid customerGuid);
 
         /// <summary>
+        /// 获得用户实体（根据用户电子邮箱）
         /// Get customer by email
         /// </summary>
         /// <param name="email">Email</param>
@@ -100,6 +101,7 @@ namespace Nop.Services.Customers
         Customer GetCustomerBySystemName(string systemName);
 
         /// <summary>
+        /// 获得用户实体（根据用户名）
         /// Get customer by username
         /// </summary>
         /// <param name="username">Username</param>

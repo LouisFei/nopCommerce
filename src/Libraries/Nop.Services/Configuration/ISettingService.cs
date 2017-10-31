@@ -8,11 +8,13 @@ namespace Nop.Services.Configuration
 {
     /// <summary>
     /// Setting service interface
+    /// 设置服务接口
     /// </summary>
     public partial interface ISettingService
     {
         /// <summary>
         /// Gets a setting by identifier
+        /// 获得一个设置
         /// </summary>
         /// <param name="settingId">Setting identifier</param>
         /// <returns>Setting</returns>
@@ -20,18 +22,21 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Deletes a setting
+        /// 删除一个设置
         /// </summary>
         /// <param name="setting">Setting</param>
         void DeleteSetting(Setting setting);
 
         /// <summary>
         /// Deletes settings
+        /// 批量删除设置
         /// </summary>
         /// <param name="settings">Settings</param>
         void DeleteSettings(IList<Setting> settings);
 
         /// <summary>
         /// Get setting by key
+        /// 获得设置（根据键值）
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="storeId">Store identifier</param>
@@ -41,6 +46,7 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Get setting value by key
+        /// 获得设置值（根据键值）
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="key">Key</param>
@@ -53,6 +59,7 @@ namespace Nop.Services.Configuration
         
         /// <summary>
         /// Set setting value
+        /// 设置设置值
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="key">Key</param>
@@ -63,12 +70,14 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Gets all settings
+        /// 获得所有设置
         /// </summary>
         /// <returns>Settings</returns>
         IList<Setting> GetAllSettings();
 
         /// <summary>
         /// Determines whether a setting exists
+        /// 判断一个设置是否存在（支持表达式语法）
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <typeparam name="TPropType">Property type</typeparam>
@@ -82,6 +91,7 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Load settings
+        /// 加载设置
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="storeId">Store identifier for which settigns should be loaded</param>
@@ -89,6 +99,7 @@ namespace Nop.Services.Configuration
         
         /// <summary>
         /// Save settings object
+        /// 保存设置
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="storeId">Store identifier</param>
@@ -97,6 +108,7 @@ namespace Nop.Services.Configuration
         
         /// <summary>
         /// Save settings object
+        /// 保存设置（支持表达式语法）
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <typeparam name="TPropType">Property type</typeparam>
@@ -110,6 +122,7 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Save settings object (per store). If the setting is not overridden per storem then it'll be delete
+        /// 保存设置。
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <typeparam name="TPropType">Property type</typeparam>
@@ -124,12 +137,14 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Delete all settings
+        /// 删除所有设置
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         void DeleteSetting<T>() where T : ISettings, new();
         
         /// <summary>
         /// Delete settings object
+        /// 删除设置
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <typeparam name="TPropType">Property type</typeparam>
@@ -141,6 +156,7 @@ namespace Nop.Services.Configuration
 
         /// <summary>
         /// Clear cache
+        /// 清除缓存
         /// </summary>
         void ClearCache();
     }

@@ -8,6 +8,7 @@ namespace Nop.Services.Events
 {
     /// <summary>
     /// Evnt publisher
+    /// 事件发布器
     /// </summary>
     public class EventPublisher : IEventPublisher
     {
@@ -24,10 +25,11 @@ namespace Nop.Services.Events
 
         /// <summary>
         /// Publish to cunsumer
+        /// 向消费者发布消息
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <param name="x">Event consumer</param>
-        /// <param name="eventMessage">Event message</param>
+        /// <typeparam name="T">Type 消费者类型</typeparam>
+        /// <param name="x">Event consumer 事件消费者</param>
+        /// <param name="eventMessage">Event message 事件消息</param>
         protected virtual void PublishToConsumer<T>(IConsumer<T> x, T eventMessage)
         {
             //Ignore not installed plugins
@@ -56,6 +58,7 @@ namespace Nop.Services.Events
         }
 
         /// <summary>
+        /// 通过类型查找插件描述器
         /// Find a plugin descriptor by some type which is located into its assembly
         /// </summary>
         /// <param name="providerType">Provider type</param>
@@ -82,6 +85,7 @@ namespace Nop.Services.Events
 
         /// <summary>
         /// Publish event
+        /// 发布事件
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="eventMessage">Event message</param>

@@ -9,9 +9,11 @@ namespace Nop.Core.Domain.Customers
     public class CustomerSettings : ISettings
     {
         /// <summary>
+        /// 是否使用用户名来代替电子邮箱登录
         /// Gets or sets a value indicating whether usernames are used instead of emails
         /// </summary>
         public bool UsernamesEnabled { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether users can check the availability of usernames (when registering or changing in 'My Account')
         /// </summary>

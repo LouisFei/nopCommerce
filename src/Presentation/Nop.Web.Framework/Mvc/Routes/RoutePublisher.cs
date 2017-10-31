@@ -17,7 +17,7 @@ namespace Nop.Web.Framework.Mvc.Routes
         protected readonly ITypeFinder typeFinder;
 
         /// <summary>
-        /// Ctor
+        /// Ctor 实例化一个路由发布者对象
         /// </summary>
         /// <param name="typeFinder"></param>
         public RoutePublisher(ITypeFinder typeFinder)
@@ -26,6 +26,7 @@ namespace Nop.Web.Framework.Mvc.Routes
         }
 
         /// <summary>
+        /// 发现一个插件描述器（通过插件类型，从程序集里查找）
         /// Find a plugin descriptor by some type which is located into its assembly
         /// </summary>
         /// <param name="providerType">Provider type</param>
@@ -54,11 +55,14 @@ namespace Nop.Web.Framework.Mvc.Routes
         /// <param name="routes">Routes</param>
         public virtual void RegisterRoutes(RouteCollection routes)
         {
+            //查找所有路由规则提供者
             //通过typeFinder找出所有（包括插件）实现了接口IRouteProvider相关的类型
             var routeProviderTypes = typeFinder.FindClassesOfType<IRouteProvider>();
+
             var routeProviders = new List<IRouteProvider>();
             foreach (var providerType in routeProviderTypes)
             {
+                //忽略没有安装的插件
                 //Ignore not installed plugins
                 var plugin = FindPlugin(providerType);
                 if (plugin != null && !plugin.Installed)
@@ -70,7 +74,9 @@ namespace Nop.Web.Framework.Mvc.Routes
                 var provider = Activator.CreateInstance(providerType) as IRouteProvider;
                 routeProviders.Add(provider);
             }
+
             routeProviders = routeProviders.OrderByDescending(rp => rp.Priority).ToList();
+
             //依次调用RouteProvider的RegisterRoutes方法，注册路由规则。
             routeProviders.ForEach(rp => rp.RegisterRoutes(routes));
         }

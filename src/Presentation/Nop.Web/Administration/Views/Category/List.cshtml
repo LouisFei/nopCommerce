@@ -16,10 +16,14 @@
         @T("Admin.Catalog.Categories.Manage")
     </h1>
     <div class="pull-right">
+        <!--添加按钮-->
         <a href="@Url.Action("Create")" class="btn bg-blue">
             <i class="fa fa-plus-square"></i>
             @T("Admin.Common.AddNew")
         </a>
+        <!--/添加按钮-->
+
+        <!--导出按钮-->
         <div class="btn-group">
             <button type="button" class="btn btn-success">
                 <i class="fa fa-download"></i>
@@ -44,10 +48,15 @@
                 </li>
             </ul>
         </div>
+        <!--/导出按钮-->
+
+        <!--导入按钮-->
         <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
             <i class="fa fa-upload"></i>
             @T("Admin.Common.Import")
         </button>
+        <!--/导入按钮-->
+
     </div>
 </div>
 
@@ -90,6 +99,8 @@
 
                     <script>
                         $(document).ready(function() {
+
+                            //数据表格
                             $("#categories-grid").kendoGrid({
                                 dataSource: {
                                     type: "json",
@@ -156,6 +167,7 @@
 
                     <script type="text/javascript">
                         $(document).ready(function() {
+                            //搜索按钮
                             //search button
                             $('#search-categories').click(function() {
                                 //search
@@ -165,6 +177,7 @@
                                 return false;
                             });
 
+                            //按回车触发搜索按钮点击事件
                             $("#@Html.FieldIdFor(model => model.SearchCategoryName)").keydown(function(event) {
                                 if (event.keyCode == 13) {
                                     $("#search-categories").click();
@@ -173,6 +186,7 @@
                             });
                         });
 
+                        //附加的数据（用作查询条件）
                         function additionalData() {
                             var data = {
                                 SearchCategoryName: $('#@Html.FieldIdFor(model => model.SearchCategoryName)').val(),
@@ -188,6 +202,7 @@
     </div>
 </div>
 
+<!--导入数据表单-->
 @*import categories form*@
 <div id="importexcel-window" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importexcel-window-title">
     <div class="modal-dialog">

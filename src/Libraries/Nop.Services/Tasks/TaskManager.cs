@@ -8,6 +8,7 @@ namespace Nop.Services.Tasks
 {
     /// <summary>
     /// Represents task manager
+    /// 任务管理器
     /// </summary>
     public partial class TaskManager
     {

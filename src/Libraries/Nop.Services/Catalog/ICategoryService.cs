@@ -18,13 +18,14 @@ namespace Nop.Services.Catalog
 
         /// <summary>
         /// Gets all categories
+        /// 根据查询条件查询商品分类数据
         /// </summary>
-        /// <param name="categoryName">Category name</param>
-        /// <param name="storeId">Store identifier; 0 if you want to get all records</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <returns>Categories</returns>
+        /// <param name="categoryName">Category name 目录名称</param>
+        /// <param name="storeId">Store identifier; 0 if you want to get all records 商店编号</param>
+        /// <param name="pageIndex">Page index 第几页</param>
+        /// <param name="pageSize">Page size 第页显示几条记录</param>
+        /// <param name="showHidden">A value indicating whether to show hidden records 是否显示隐藏的数据</param>
+        /// <returns>Categories 返回商品分类数据列表</returns>
         IPagedList<Category> GetAllCategories(string categoryName = "", int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
 

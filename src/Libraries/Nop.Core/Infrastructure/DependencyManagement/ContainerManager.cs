@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using Autofac;
 using Autofac.Core.Lifetime;
 using Autofac.Integration.Mvc;
@@ -10,13 +11,14 @@ namespace Nop.Core.Infrastructure.DependencyManagement
 {
     /// <summary>
     /// Container manager
-    /// 容器管理器
+    /// 容器封装器，对容器做了一层封装，方便对其他类型的IOC框架的扩充和支持。
     /// </summary>
     public class ContainerManager
     {
         private readonly IContainer _container;
 
         /// <summary>
+        /// 实例化容器封装器对象
         /// Constructor
         /// </summary>
         /// <param name="container">Conainer</param>
@@ -27,6 +29,7 @@ namespace Nop.Core.Infrastructure.DependencyManagement
 
         /// <summary>
         /// Gets a container
+        /// 容器
         /// </summary>
         public virtual IContainer Container
         {
@@ -36,8 +39,10 @@ namespace Nop.Core.Infrastructure.DependencyManagement
             }
         }
 
+
         /// <summary>
         /// Resolve
+        /// 获得之前为指定类型注册的依赖组件服务。
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="key">key</param>
@@ -54,6 +59,7 @@ namespace Nop.Core.Infrastructure.DependencyManagement
             {
                 return scope.Resolve<T>();
             }
+
             return scope.ResolveKeyed<T>(key);
         }
 

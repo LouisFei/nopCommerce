@@ -4,15 +4,18 @@ namespace Nop.Web.Framework.Security.Captcha
 {
     /// <summary>
     /// CAPTCHA settings
+    /// 验证码设置
     /// </summary>
     public class CaptchaSettings : ISettings
     {
         /// <summary>
         /// Is CAPTCHA enabled?
+        /// 是否开启验证码
         /// </summary>
         public bool Enabled { get; set; }
         /// <summary>
         /// A value indicating whether CAPTCHA should be displayed on the login page
+        /// 是否在登录页显示验证码
         /// </summary>
         public bool ShowOnLoginPage { get; set; }
         /// <summary>

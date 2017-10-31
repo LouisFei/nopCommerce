@@ -9,6 +9,9 @@ using Nop.Web.Framework.Security;
 
 namespace Nop.Web.Controllers
 {
+    /// <summary>
+    /// 专题
+    /// </summary>
     public partial class TopicController : BasePublicController
     {
         #region Fields

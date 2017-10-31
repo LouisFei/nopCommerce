@@ -73,6 +73,7 @@ namespace Nop.Data
         #region Methods
 
         /// <summary>
+        /// 初始化数据库连接工厂
         /// Initialize connection factory
         /// </summary>
         public virtual void InitConnectionFactory()
@@ -85,6 +86,7 @@ namespace Nop.Data
 
         /// <summary>
         /// Initialize database
+        /// 初始化数据库
         /// </summary>
         public virtual void InitDatabase()
         {
@@ -94,6 +96,7 @@ namespace Nop.Data
 
         /// <summary>
         /// Set database initializer
+        /// 初始数据库
         /// </summary>
         public virtual void SetDatabaseInitializer()
         {
@@ -106,6 +109,7 @@ namespace Nop.Data
             customCommands.AddRange(ParseCommands(CommonHelper.MapPath("~/App_Data/Install/SqlServer.Indexes.sql"), false));
             customCommands.AddRange(ParseCommands(CommonHelper.MapPath("~/App_Data/Install/SqlServer.StoredProcedures.sql"), false));
 
+            //初始化数据库，（确保表都创建了）
             var initializer = new CreateTablesIfNotExist<NopObjectContext>(tablesToValidate, customCommands.ToArray());
             Database.SetInitializer(initializer);
         }

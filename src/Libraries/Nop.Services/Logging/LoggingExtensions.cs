@@ -4,12 +4,23 @@ using Nop.Core.Domain.Logging;
 
 namespace Nop.Services.Logging
 {
+    /// <summary>
+    /// 日志服务扩展方法
+    /// </summary>
     public static class LoggingExtensions
     {
+        /// <summary>
+        /// Debug
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        /// <param name="customer"></param>
         public static void Debug(this ILogger logger, string message, Exception exception = null, Customer customer = null)
         {
             FilteredLog(logger, LogLevel.Debug, message, exception, customer);
         }
+
         public static void Information(this ILogger logger, string message, Exception exception = null, Customer customer = null)
         {
             FilteredLog(logger, LogLevel.Information, message, exception, customer);

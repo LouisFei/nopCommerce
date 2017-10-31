@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+
 using Nop.Admin.Extensions;
 using Nop.Admin.Helpers;
 using Nop.Admin.Models.Catalog;
+
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Discounts;
+
 using Nop.Services;
 using Nop.Services.Catalog;
 using Nop.Services.Customers;
@@ -21,6 +24,7 @@ using Nop.Services.Security;
 using Nop.Services.Seo;
 using Nop.Services.Stores;
 using Nop.Services.Vendors;
+
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Kendoui;
 using Nop.Web.Framework.Mvc;
@@ -34,6 +38,9 @@ namespace Nop.Admin.Controllers
     {
         #region Fields
 
+        /// <summary>
+        /// 商品分类服务
+        /// </summary>
         private readonly ICategoryService _categoryService;
         private readonly ICategoryTemplateService _categoryTemplateService;
         private readonly IManufacturerService _manufacturerService;
@@ -41,6 +48,9 @@ namespace Nop.Admin.Controllers
         private readonly ICustomerService _customerService;
         private readonly IUrlRecordService _urlRecordService;
         private readonly IPictureService _pictureService;
+        /// <summary>
+        /// 语言服务
+        /// </summary>
         private readonly ILanguageService _languageService;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedEntityService _localizedEntityService;
@@ -315,23 +325,42 @@ namespace Nop.Admin.Controllers
         public virtual ActionResult List()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
+            {
                 return AccessDeniedView();
+            }
 
             var model = new CategoryListModel();
             model.AvailableStores.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });
+
             foreach (var s in _storeService.GetAllStores())
+            {
                 model.AvailableStores.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString() });
+            }
+
+
             return View(model);
         }
 
+        /// <summary>
+        /// 列表数据json结果
+        /// </summary>
+        /// <param name="command">封装了分页相关参数</param>
+        /// <param name="model">封装了查询参数</param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult List(DataSourceRequest command, CategoryListModel model)
         {
+            //权限检测
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
+            {
                 return AccessDeniedKendoGridJson();
+            }
 
+            //数据查询
             var categories = _categoryService.GetAllCategories(model.SearchCategoryName, 
                 model.SearchStoreId, command.Page - 1, command.PageSize, true);
+
+            //查询结果包装返回
             var gridModel = new DataSourceResult
             {
                 Data = categories.Select(x =>
@@ -342,6 +371,8 @@ namespace Nop.Admin.Controllers
                 }),
                 Total = categories.TotalCount
             };
+
+            //结果以json形式返回
             return Json(gridModel);
         }
         
@@ -352,7 +383,9 @@ namespace Nop.Admin.Controllers
         public virtual ActionResult Create()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
+            {
                 return AccessDeniedView();
+            }
 
             var model = new CategoryModel();
             //locales

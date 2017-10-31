@@ -13,6 +13,7 @@ namespace Nop.Services.Logging
 {
     /// <summary>
     /// Customer activity service
+    /// 用户活动服务
     /// </summary>
     public class CustomerActivityService : ICustomerActivityService
     {
@@ -125,6 +126,7 @@ namespace Nop.Services.Logging
 
         /// <summary>
         /// Inserts an activity log type item
+        /// 插入一个活动日志类型
         /// </summary>
         /// <param name="activityLogType">Activity log type item</param>
         public virtual void InsertActivityType(ActivityLogType activityLogType)
@@ -138,6 +140,7 @@ namespace Nop.Services.Logging
 
         /// <summary>
         /// Updates an activity log type item
+        /// 更新活动日志类型
         /// </summary>
         /// <param name="activityLogType">Activity log type item</param>
         public virtual void UpdateActivityType(ActivityLogType activityLogType)
@@ -151,6 +154,7 @@ namespace Nop.Services.Logging
                 
         /// <summary>
         /// Deletes an activity log type item
+        /// 删除一条活动日志类型
         /// </summary>
         /// <param name="activityLogType">Activity log type</param>
         public virtual void DeleteActivityType(ActivityLogType activityLogType)
@@ -163,6 +167,7 @@ namespace Nop.Services.Logging
         }
 
         /// <summary>
+        /// 获得所有活动日志类型
         /// Gets all activity log type items
         /// </summary>
         /// <returns>Activity log type items</returns>
@@ -176,6 +181,7 @@ namespace Nop.Services.Logging
         }
 
         /// <summary>
+        /// 获得活动日志类型实体（根据活动日志类型编号）
         /// Gets an activity log type item
         /// </summary>
         /// <param name="activityLogTypeId">Activity log type identifier</param>
@@ -190,6 +196,7 @@ namespace Nop.Services.Logging
 
         /// <summary>
         /// Inserts an activity log item
+        /// 插入一条活动日志
         /// </summary>
         /// <param name="systemKeyword">The system keyword</param>
         /// <param name="comment">The activity comment</param>
@@ -203,6 +210,7 @@ namespace Nop.Services.Logging
 
         /// <summary>
         /// Inserts an activity log item
+        /// 插入一条活动日志
         /// </summary>
         /// <param name="customer">The customer</param>
         /// <param name="systemKeyword">The system keyword</param>

@@ -15,6 +15,9 @@ using Nop.Services.Localization;
 
 namespace Nop.Services.Installation
 {
+    /// <summary>
+    /// 通过Sql脚本安装数据库
+    /// </summary>
     public partial class SqlFileInstallationService : IInstallationService
     {
         #region Fields

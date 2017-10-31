@@ -34,16 +34,19 @@ namespace Nop.Web.Infrastructure
                             new { controller = "Widget", action = "WidgetsByZone" },
                             new[] { "Nop.Web.Controllers" });
 
+            //用户登录
             //login
             routes.MapLocalizedRoute("Login",
                             "login/",
                             new { controller = "Customer", action = "Login" },
                             new[] { "Nop.Web.Controllers" });
+            //用户注册
             //register
             routes.MapLocalizedRoute("Register",
                             "register/",
                             new { controller = "Customer", action = "Register" },
                             new[] { "Nop.Web.Controllers" });
+            //用户退出登录
             //logout
             routes.MapLocalizedRoute("Logout",
                             "logout/",

@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 namespace Nop.Core
 {
     /// <summary>
+    /// 自定义异常类
     /// Represents errors that occur during application execution
     /// </summary>
     [Serializable]

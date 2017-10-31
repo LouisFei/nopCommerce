@@ -4,11 +4,21 @@ namespace Nop.Core.Domain.Configuration
 {
     /// <summary>
     /// Represents a setting
+    /// 领域模型实体类：设置
     /// </summary>
     public partial class Setting : BaseEntity, ILocalizedEntity
     {
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
         public Setting() { }
         
+        /// <summary>
+        /// 带参构造函数，实例化一个设置实体类
+        /// </summary>
+        /// <param name="name">设置名</param>
+        /// <param name="value">设置值</param>
+        /// <param name="storeId">归属（可忽略）</param>
         public Setting(string name, string value, int storeId = 0) {
             this.Name = name;
             this.Value = value;

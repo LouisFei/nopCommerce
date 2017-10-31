@@ -2,6 +2,7 @@
 namespace Nop.Core.Events
 {
     /// <summary>
+    /// 实体删除容器
     /// A container for passing entities that have been deleted. This is not used for entities that are deleted logicaly via a bit column.
     /// </summary>
     /// <typeparam name="T"></typeparam>

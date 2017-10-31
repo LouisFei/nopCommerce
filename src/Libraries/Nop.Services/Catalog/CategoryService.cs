@@ -18,11 +18,12 @@ using Nop.Services.Stores;
 namespace Nop.Services.Catalog
 {
     /// <summary>
+    /// 商品分类服务
     /// Category service
     /// </summary>
     public partial class CategoryService : ICategoryService
     {
-        #region Constants
+        #region Constants 常量
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -74,9 +75,12 @@ namespace Nop.Services.Catalog
 
         #endregion
 
-        #region Fields
-
+        #region Fields 私有字段
+        /// <summary>
+        /// 商品分类资源库
+        /// </summary>
         private readonly IRepository<Category> _categoryRepository;
+
         private readonly IRepository<ProductCategory> _productCategoryRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<AclRecord> _aclRepository;
@@ -86,6 +90,9 @@ namespace Nop.Services.Catalog
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IEventPublisher _eventPublisher;
+        /// <summary>
+        /// 缓存管理器
+        /// </summary>
         private readonly ICacheManager _cacheManager;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IAclService _aclService;
@@ -94,7 +101,7 @@ namespace Nop.Services.Catalog
 
         #endregion
         
-        #region Ctor
+        #region Ctor 构造函数
 
         /// <summary>
         /// Ctor
@@ -151,8 +158,10 @@ namespace Nop.Services.Catalog
 
         #region Methods
 
+        #region delete one
         /// <summary>
         /// Delete category
+        /// 删除单个实体
         /// </summary>
         /// <param name="category">Category</param>
         public virtual void DeleteCategory(Category category)
@@ -174,9 +183,12 @@ namespace Nop.Services.Catalog
                 UpdateCategory(subcategory);
             }
         }
-        
+        #endregion
+
+        #region get all
         /// <summary>
         /// Gets all categories
+        /// 获得全部实体（支持查询条件，分页机制）
         /// </summary>
         /// <param name="categoryName">Category name</param>
         /// <param name="storeId">Store identifier; 0 if you want to get all records</param>
@@ -293,9 +305,12 @@ namespace Nop.Services.Catalog
                 return new PagedList<Category>(sortedCategories, pageIndex, pageSize);
             }
         }
+        #endregion
 
+        #region get all children
         /// <summary>
         /// Gets all categories filtered by parent category identifier
+        /// 获得所有商品子分类根据上一级分类
         /// </summary>
         /// <param name="parentCategoryId">Parent category identifier</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
@@ -361,7 +376,9 @@ namespace Nop.Services.Catalog
                 return categories;
             });
         }
-        
+        #endregion
+
+        #region get all (show on home page)
         /// <summary>
         /// Gets all categories displayed on the home page
         /// </summary>
@@ -386,9 +403,12 @@ namespace Nop.Services.Catalog
 
             return categories;
         }
-                
+        #endregion
+
+        #region get one entity
         /// <summary>
         /// Gets a category
+        /// 获得一个商品分类实体（根据商品分类id）
         /// </summary>
         /// <param name="categoryId">Category identifier</param>
         /// <returns>Category</returns>
@@ -400,28 +420,38 @@ namespace Nop.Services.Catalog
             string key = string.Format(CATEGORIES_BY_ID_KEY, categoryId);
             return _cacheManager.Get(key, () => _categoryRepository.GetById(categoryId));
         }
+        #endregion
 
+        #region insert one entity
         /// <summary>
         /// Inserts category
+        /// 插入/新增/添加 商品分类实体
         /// </summary>
         /// <param name="category">Category</param>
         public virtual void InsertCategory(Category category)
         {
             if (category == null)
+            {
                 throw new ArgumentNullException("category");
+            }
 
+            //新增实体
             _categoryRepository.Insert(category);
 
-            //cache
-            _cacheManager.RemoveByPattern(CATEGORIES_PATTERN_KEY);
-            _cacheManager.RemoveByPattern(PRODUCTCATEGORIES_PATTERN_KEY);
+            //cache 删除商品分类缓存
+            _cacheManager.RemoveByPattern(CATEGORIES_PATTERN_KEY); //删除商品分类缓存
+            _cacheManager.RemoveByPattern(PRODUCTCATEGORIES_PATTERN_KEY);//删除商品分类缓存
 
+            //事件通知
             //event notification
             _eventPublisher.EntityInserted(category);
         }
+        #endregion
 
+        #region update one entity
         /// <summary>
         /// Updates the category
+        /// 更新商品分类实体
         /// </summary>
         /// <param name="category">Category</param>
         public virtual void UpdateCategory(Category category)
@@ -450,8 +480,9 @@ namespace Nop.Services.Catalog
             //event notification
             _eventPublisher.EntityUpdated(category);
         }
-        
-        
+        #endregion
+
+        #region delete 
         /// <summary>
         /// Deletes a product category mapping
         /// </summary>
@@ -470,6 +501,7 @@ namespace Nop.Services.Catalog
             //event notification
             _eventPublisher.EntityDeleted(productCategory);
         }
+        #endregion
 
         /// <summary>
         /// Gets product category mapping collection

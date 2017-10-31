@@ -38,6 +38,7 @@ namespace Nop.Core.Infrastructure
 
         /// <summary>
         /// Gets a physical disk path of \Bin directory
+        /// 获得程序集物理路径
         /// </summary>
         /// <returns>The physical path. E.g. "c:\inetpub\wwwroot\bin"</returns>
         public virtual string GetBinDirectory()
@@ -52,6 +53,10 @@ namespace Nop.Core.Infrastructure
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
+        /// <summary>
+        /// 获得所有程序集
+        /// </summary>
+        /// <returns></returns>
         public override IList<Assembly> GetAssemblies()
         {
             if (this.EnsureBinFolderAssembliesLoaded && !_binFolderAssembliesLoaded)

@@ -13,13 +13,19 @@ namespace Nop.Core.Infrastructure
     /// certain patterns are investigated and an optional list of assemblies
     /// referenced by <see cref="AssemblyNames"/> are always investigated.
     /// 
-    /// 在当前运行中的AppDomain中查找相关类型的集合。
+    /// 在当前运行中的应用程序域中查找相关类型。
     /// </summary>
     public class AppDomainTypeFinder : ITypeFinder
     {
         #region Fields
 
+        /// <summary>
+        /// 忽略反射错误
+        /// </summary>
         private bool ignoreReflectionErrors = true;
+        /// <summary>
+        /// 加载程序域中的程序集
+        /// </summary>
         private bool loadAppDomainAssemblies = true;
         //忽略一些系统程序集及其它特殊程序集。
         private string assemblySkipLoadingPattern = "^System|^mscorlib|^Microsoft|^AjaxControlToolkit|^Antlr3|^Autofac|^AutoMapper|^Castle|^ComponentArt|^CppCodeProvider|^DotNetOpenAuth|^EntityFramework|^EPPlus|^FluentValidation|^ImageResizer|^itextsharp|^log4net|^MaxMind|^MbUnit|^MiniProfiler|^Mono.Math|^MvcContrib|^Newtonsoft|^NHibernate|^nunit|^Org.Mentalis|^PerlRegex|^QuickGraph|^Recaptcha|^Remotion|^RestSharp|^Rhino|^Telerik|^Iesi|^TestDriven|^TestFu|^UserAgentStringLibrary|^VJSharpCodeProvider|^WebActivator|^WebDev|^WebGrease";
@@ -30,7 +36,10 @@ namespace Nop.Core.Infrastructure
 
         #region Properties
 
-        /// <summary>The app domain to look for types in.</summary>
+        /// <summary>
+        /// （当前线程中的）当前应用程序域
+        /// The app domain to look for types in.
+        /// </summary>
         public virtual AppDomain App
         {
             get { return AppDomain.CurrentDomain; }
@@ -39,7 +48,7 @@ namespace Nop.Core.Infrastructure
         /// <summary>
         /// Gets or sets whether Nop should iterate assemblies in the app domain when loading Nop types. 
         /// Loading patterns are applied when loading these assemblies.
-        /// 是否加载程序集
+        /// 是否加载当前应用程序域中的程序集
         /// </summary>
         public bool LoadAppDomainAssemblies
         {
@@ -47,14 +56,19 @@ namespace Nop.Core.Infrastructure
             set { loadAppDomainAssemblies = value; }
         }
 
-        /// <summary>Gets or sets assemblies loaded a startup in addition to those loaded in the AppDomain.</summary>
+        /// <summary>
+        /// Gets or sets assemblies loaded a startup in addition to those loaded in the AppDomain.
+        /// </summary>
         public IList<string> AssemblyNames
         {
             get { return assemblyNames; }
             set { assemblyNames = value; }
         }
 
-        /// <summary>Gets the pattern for dlls that we know don't need to be investigated.</summary>
+        /// <summary>
+        /// Gets the pattern for dlls that we know don't need to be investigated.
+        /// 跳转的程序集名称
+        /// </summary>
         public string AssemblySkipLoadingPattern
         {
             get { return assemblySkipLoadingPattern; }
@@ -88,9 +102,17 @@ namespace Nop.Core.Infrastructure
             return FindClassesOfType(typeof (T), assemblies, onlyConcreteClasses);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assignTypeFrom">基类类型</param>
+        /// <param name="assemblies">程序集列表</param>
+        /// <param name="onlyConcreteClasses">是否只查找具体类（即可以直接实例化的类）</param>
+        /// <returns></returns>
         public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
         {
             var result = new List<Type>();
+
             try
             {
                 foreach (var a in assemblies)
@@ -112,13 +134,15 @@ namespace Nop.Core.Infrastructure
                     {
                         foreach (var t in types)
                         {
-                            if (assignTypeFrom.IsAssignableFrom(t) || (assignTypeFrom.IsGenericTypeDefinition && DoesTypeImplementOpenGeneric(t, assignTypeFrom)))
+                            //
+                            if (assignTypeFrom.IsAssignableFrom(t) || 
+                                (assignTypeFrom.IsGenericTypeDefinition && DoesTypeImplementOpenGeneric(t, assignTypeFrom)))
                             {
-                                if (!t.IsInterface)
+                                if (!t.IsInterface) //不是接口，即是类类型或值类型
                                 {
-                                    if (onlyConcreteClasses)
+                                    if (onlyConcreteClasses) //只查找具体类
                                     {
-                                        if (t.IsClass && !t.IsAbstract)
+                                        if (t.IsClass && !t.IsAbstract) //要是类，并且不是抽象类
                                         {
                                             result.Add(t);
                                         }
@@ -137,13 +161,16 @@ namespace Nop.Core.Infrastructure
             {
                 var msg = string.Empty;
                 foreach (var e in ex.LoaderExceptions)
+                {
                     msg += e.Message + Environment.NewLine;
+                }
 
                 var fail = new Exception(msg, ex);
                 Debug.WriteLine(fail.Message, fail);
 
                 throw fail;
             }
+
             return result;
         }
 

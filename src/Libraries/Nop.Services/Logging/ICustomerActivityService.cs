@@ -53,6 +53,7 @@ namespace Nop.Services.Logging
 
         /// <summary>
         /// Inserts an activity log item
+        /// 插入一个活动日志项
         /// </summary>
         /// <param name="customer">The customer</param>
         /// <param name="systemKeyword">The system keyword</param>

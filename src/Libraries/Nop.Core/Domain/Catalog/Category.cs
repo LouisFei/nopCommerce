@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Security;
@@ -9,9 +10,12 @@ using Nop.Core.Domain.Stores;
 namespace Nop.Core.Domain.Catalog
 {
     /// <summary>
-    /// 类别
+    /// 商品分类实体类
     /// Represents a category
     /// </summary>
+    /// <remarks>
+    /// 贫血型领域模型，业务实体
+    /// </remarks>
     public partial class Category : BaseEntity, ILocalizedEntity, ISlugSupported, IAclSupported, IStoreMappingSupported
     {
         private ICollection<Discount> _appliedDiscounts;

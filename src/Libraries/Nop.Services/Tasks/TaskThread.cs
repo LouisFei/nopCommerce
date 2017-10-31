@@ -7,6 +7,7 @@ namespace Nop.Services.Tasks
 {
     /// <summary>
     /// Represents task thread
+    /// 任务线程
     /// </summary>
     public partial class TaskThread : IDisposable
     {

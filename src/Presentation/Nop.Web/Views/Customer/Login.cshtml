@@ -6,9 +6,9 @@
     Layout = "~/Views/Shared/_ColumnsOne.cshtml";
 
     //title
-    Html.AddTitleParts(T("PageTitle.Login").Text);
+    Html.AddTitleParts(T("PageTitle.Login").Text); //页面标题
     //page class
-    Html.AppendPageCssClassParts("html-login-page");
+    Html.AppendPageCssClassParts("html-login-page"); //html标签class属性片断
 
     //register URL with return URL (if specified)
     var registerUrl = Url.RouteUrl("Register");
@@ -28,6 +28,7 @@
         <div class="customer-blocks">
             @if (Model.CheckoutAsGuest)
             {
+                <!--开启游客模式-->
                 <div class="new-wrapper checkout-as-guest-or-register-block">
                     <div class="title">
                         <strong>@T("Account.Login.CheckoutAsGuestOrRegister")</strong>
@@ -40,9 +41,11 @@
                         <input type="button" class="button-1 register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
                     </div>
                 </div>
+                <!--/开启游客模式-->
             }
             else
             {
+                <!--新用户，引导注册-->
                 <div class="new-wrapper register-block">
                     <div class="title">
                         <strong>@T("Account.Login.NewCustomer")</strong>
@@ -54,7 +57,9 @@
                         <input type="button" class="button-1 register-button" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
                     </div>
                 </div>
+                <!--/新用户，引导注册-->
             }
+
             <div class="returning-wrapper fieldset">
                 @using (Html.BeginForm())
                 {
@@ -69,6 +74,7 @@
                     <div class="form-fields">
                         @if (Model.UsernamesEnabled)
                         {
+                            //使用用户名登录
                             <div class="inputs">
                                 @Html.LabelFor(m => m.Username, new { }, ":")
                                 @Html.TextBoxFor(m => m.Username, new { @class = "username", autofocus = "autofocus" })
@@ -77,31 +83,40 @@
                         }
                         else
                         {
+                            //使用电子邮箱登录
                             <div class="inputs">
                                 @Html.LabelFor(m => m.Email, new { }, ":")
                                 @Html.TextBoxFor(m => m.Email, new { @class = "email", autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(m => m.Email)
                             </div>
                         }
+                        <!--登录密码-->
                         <div class="inputs">
                             @Html.LabelFor(m => m.Password, new { }, ":")
                             @Html.PasswordFor(m => m.Password, new { @class = "password" })
                             @Html.ValidationMessageFor(m => m.Password)
                         </div>
+
                         <div class="inputs reversed">
+                            <!--记住我-->
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)
+
+                            <!--忘记密码-->
                             <span class="forgot-password">
                                 @Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")
                             </span>
                         </div>
+
                         @if (Model.DisplayCaptcha)
                         {
+                            //验证码
                             <div class="captcha-box">
                                 @Html.Raw(Html.GenerateCaptcha())
                             </div>
                         }
                     </div>
+
                     <div class="buttons">
                         <input class="button-1 login-button" type="submit" value="@T("Account.Login.LoginButton")" />
                     </div>
@@ -111,6 +126,7 @@
         <div class="external-authentication">
             @Html.Action("ExternalMethods", "ExternalAuthentication")
         </div>
+
         @Html.Action("TopicBlock", "Topic", new { systemName = "LoginRegistrationInfo" })
     </div>
 </div>
