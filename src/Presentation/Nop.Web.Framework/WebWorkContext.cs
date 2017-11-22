@@ -187,6 +187,8 @@ namespace Nop.Web.Framework
                     return _cachedCustomer;
 
                 Customer customer = null;
+
+                #region system user
                 if (_httpContext == null || _httpContext is FakeHttpContext)
                 {
                     //check whether request is made by a background task
@@ -204,6 +206,7 @@ namespace Nop.Web.Framework
                         customer = _customerService.GetCustomerBySystemName(SystemCustomerNames.SearchEngine);
                     }
                 }
+                #endregion
 
                 //registered user
                 if (customer == null || customer.Deleted || !customer.Active || customer.RequireReLogin)
@@ -211,6 +214,7 @@ namespace Nop.Web.Framework
                     customer = _authenticationService.GetAuthenticatedCustomer();
                 }
 
+                #region impersonate user
                 //impersonate user if required (currently used for 'phone order' support)
                 if (customer != null && !customer.Deleted && customer.Active && !customer.RequireReLogin)
                 {
@@ -226,8 +230,9 @@ namespace Nop.Web.Framework
                         }
                     }
                 }
+                #endregion
 
-                //load guest customer
+                #region load guest customer
                 if (customer == null || customer.Deleted || !customer.Active || customer.RequireReLogin)
                 {
                     var customerCookie = GetCustomerCookie();
@@ -244,13 +249,13 @@ namespace Nop.Web.Framework
                         }
                     }
                 }
+                #endregion
 
                 //create guest if not exists
                 if (customer == null || customer.Deleted || !customer.Active || customer.RequireReLogin)
                 {
                     customer = _customerService.InsertGuestCustomer();
                 }
-
 
                 //validation
                 if (!customer.Deleted && customer.Active && !customer.RequireReLogin)
