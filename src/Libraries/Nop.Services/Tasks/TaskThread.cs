@@ -7,7 +7,7 @@ namespace Nop.Services.Tasks
 {
     /// <summary>
     /// Represents task thread
-    /// 任务线程
+    /// 是任务线程，每个任务都会产生一个线程，以方便任务能独立运行。
     /// </summary>
     public partial class TaskThread : IDisposable
     {

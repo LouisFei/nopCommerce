@@ -48,6 +48,7 @@ namespace Nop.Services.Orders
 
         /// <summary>
         /// Update reward points balance if necessary
+        /// 更新积分余额
         /// </summary>
         /// <param name="query">Input query</param>
         protected void UpdateRewardPointsBalance(IQueryable<RewardPointsHistory> query)
@@ -59,17 +60,22 @@ namespace Nop.Services.Orders
             //The function 'CurrentUtcDateTime' is not supported by SQL Server Compact. 
             //That's why we pass the date value
             var nowUtc = DateTime.UtcNow;
+
+            //未计算余额的积分历史记录
             var notActivatedRph = query.Where(rph => !rph.PointsBalance.HasValue && rph.CreatedOnUtc < nowUtc).ToList();
 
             //nothing to update
             if (!notActivatedRph.Any())
                 return;
 
+            //获得最新的积分历史记录
             //get current points balance, LINQ to entities does not support Last method, thus order by desc and use First one
             var lastActive = query.OrderByDescending(rph => rph.CreatedOnUtc).ThenByDescending(rph => rph.Id).FirstOrDefault(rph => rph.PointsBalance.HasValue);
-            var currentPointsBalance = lastActive != null ? lastActive.PointsBalance : 0;
+            //当前积分余额
+            var currentPointsBalance = (lastActive != null ? lastActive.PointsBalance : 0);
 
             //update appropriate records
+            //对未记算积分余额的积分历史记录，更新其余额字段
             foreach (var rph in notActivatedRph)
             {
                 rph.PointsBalance = currentPointsBalance + rph.Points;
@@ -124,6 +130,7 @@ namespace Nop.Services.Orders
 
         /// <summary>
         /// Add reward points history record
+        /// 给客户添加积分
         /// </summary>
         /// <param name="customer">Customer</param>
         /// <param name="points">Number of points to add</param>
@@ -164,6 +171,7 @@ namespace Nop.Services.Orders
 
         /// <summary>
         /// Gets reward points balance
+        /// 获得积分余额
         /// </summary>
         /// <param name="customerId">Customer identifier</param>
         /// <param name="storeId">Store identifier; pass </param>
@@ -182,6 +190,7 @@ namespace Nop.Services.Orders
             var nowUtc = DateTime.UtcNow;
             query = query.Where(rph => rph.CreatedOnUtc < nowUtc);
 
+            //首先更新积分余额
             //first update points balance
             UpdateRewardPointsBalance(query);
 
@@ -222,6 +231,7 @@ namespace Nop.Services.Orders
 
         /// <summary>
         /// Updates the reward point history entry
+        /// 更新积分历史记录（比如计算积分余额）
         /// </summary>
         /// <param name="rewardPointsHistory">Reward point history entry</param>
         public virtual void UpdateRewardPointsHistoryEntry(RewardPointsHistory rewardPointsHistory)

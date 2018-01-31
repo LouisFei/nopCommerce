@@ -5,6 +5,7 @@ namespace Nop.Services.Tasks
 {
     /// <summary>
     /// Task service interface
+    /// 是相关数据库操作的服务接口，比如添加、编辑、查询、删除等等。
     /// </summary>
     public partial interface IScheduleTaskService
     {

@@ -6,6 +6,7 @@ namespace Nop.Core.Domain.Polls
 {
     /// <summary>
     /// Represents a poll
+    /// ͶƱ
     /// </summary>
     public partial class Poll : BaseEntity
     {

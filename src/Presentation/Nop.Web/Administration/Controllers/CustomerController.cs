@@ -1708,6 +1708,14 @@ namespace Nop.Admin.Controllers
             return Json(gridModel);
         }
 
+        /// <summary>
+        /// 为客户添加积分
+        /// </summary>
+        /// <param name="customerId">客户编号</param>
+        /// <param name="storeId"></param>
+        /// <param name="addRewardPointsValue">积分数值</param>
+        /// <param name="addRewardPointsMessage">积分说明</param>
+        /// <returns></returns>
         [ValidateInput(false)]
         public virtual ActionResult RewardPointsHistoryAdd(int customerId, int storeId, int addRewardPointsValue, string addRewardPointsMessage)
         {

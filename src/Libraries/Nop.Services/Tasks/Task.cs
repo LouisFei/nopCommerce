@@ -11,6 +11,7 @@ namespace Nop.Services.Tasks
 {
     /// <summary>
     /// Task
+    /// 任务，记录任务执行的部分数据和通过反射来产生具体需要执行的任务。
     /// </summary>
     public partial class Task
     {

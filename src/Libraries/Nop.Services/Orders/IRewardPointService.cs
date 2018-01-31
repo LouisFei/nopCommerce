@@ -24,6 +24,7 @@ namespace Nop.Services.Orders
 
         /// <summary>
         /// Add reward points history record
+        /// 为客户添加积分
         /// </summary>
         /// <param name="customer">Customer</param>
         /// <param name="points">Number of points to add</param>

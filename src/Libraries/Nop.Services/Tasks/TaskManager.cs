@@ -9,6 +9,7 @@ namespace Nop.Services.Tasks
     /// <summary>
     /// Represents task manager
     /// 任务管理器
+    /// 是控制所有的计划任务的执行、结束、初始化等等操作。
     /// </summary>
     public partial class TaskManager
     {

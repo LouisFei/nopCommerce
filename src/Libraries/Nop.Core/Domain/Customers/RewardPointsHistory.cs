@@ -5,6 +5,7 @@ namespace Nop.Core.Domain.Customers
 {
     /// <summary>
     /// Represents a reward point history entry
+    /// 积分历史记录
     /// </summary>
     public partial class RewardPointsHistory : BaseEntity
     {
@@ -20,11 +21,13 @@ namespace Nop.Core.Domain.Customers
 
         /// <summary>
         /// Gets or sets the points redeemed/added
+        /// 兑换或获得的积分数值
         /// </summary>
         public int Points { get; set; }
 
         /// <summary>
         /// Gets or sets the points balance
+        /// 积分余额
         /// </summary>
         public int? PointsBalance { get; set; }
 
@@ -35,6 +38,7 @@ namespace Nop.Core.Domain.Customers
 
         /// <summary>
         /// Gets or sets the message
+        /// 备注说明
         /// </summary>
         public string Message { get; set; }
 
