@@ -1,0 +1,27 @@
+﻿一、概述
+基于MVC
+
+二、详细描述
+\Libraries\Nop.Core 核心类，包括缓存、事件、帮助类、业务对象(订单、客户实体)
+
+\Libraries\Nop.Data 数据访问层，采用Entity Framework Code-First
+
+\Libraries\Nop.Services 核心服务层，包括业务逻辑，校验，数据计算
+
+Projects into \Plugins\ solution folder 插件，生成的DLL自动拷贝到\Presentation\Nop.Web\Plugins\目录下
+
+\Presentation\Nop.Admin MVC web应用，是管理的展示层，实际位置在\Presentation\Nop.Web\Administration目录，无法直接运行
+
+\Presentation\Nop.Web MVC web应用，商店的展示层，可以运行
+
+\Presentation\Nop.Web.Framework 类库，包括amin和web公用的展示控件
+
+\Test\Nop.Core.Tests 测试项目
+
+\Test\Nop.Data.Tests 测试项目
+
+\Test\Nop.Services.Tests 测试项目
+
+\Test\Nop.Tests 类库，为其他测试项目提供公用测试方法和帮助，没有测试方法
+
+\Test\Nop.Web.MVC.Tests 测试项目

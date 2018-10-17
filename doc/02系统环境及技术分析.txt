@@ -1,0 +1,15 @@
+﻿一、系统环境
+IIS7.0 or above
+ASP.NET 4.5(MVC 5.0)
+.NET Framework 4.5.1 or above
+VS 2012 or above
+
+二、架构设计
+Pluggable modular/layered architecture
+Inversion of Control(IOC，控制反转) and Dependency Injection(DI，依赖注入)
+
+三、开发技术
+Entity Framework，及其CodeFirst
+ASP.NET MVC 5.0
+Autofac
+Fluent Validation，数据验证类库
