@@ -323,12 +323,12 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-title="seo">
                     <div class="panel-heading">
                         @T("Admin.Configuration.Settings.GeneralCommon.BlockTitle.SEO")
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
+                        <div class="form-group" data-title="DefaultTitle">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.DefaultTitle_OverrideForStore, model => model.SeoSettings.DefaultTitle, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.DefaultTitle)
@@ -338,7 +338,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.DefaultTitle)
                             </div>
                         </div>
-                        <div class="form-group advanced-setting">
+                        <div class="form-group advanced-setting" data-title="PageTitleSeoAdjustment">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.PageTitleSeoAdjustment_OverrideForStore, model => model.SeoSettings.PageTitleSeoAdjustment, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.PageTitleSeoAdjustment)
@@ -348,7 +348,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.PageTitleSeoAdjustment)
                             </div>
                         </div>
-                        <div class="form-group advanced-setting">
+                        <div class="form-group advanced-setting" data-title="PageTitleSeparator">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.PageTitleSeparator_OverrideForStore, model => model.SeoSettings.PageTitleSeparator, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.PageTitleSeparator)
@@ -358,7 +358,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.PageTitleSeparator)
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-title="DefaultMetaKeywords">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.DefaultMetaKeywords_OverrideForStore, model => model.SeoSettings.DefaultMetaKeywords, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.DefaultMetaKeywords)
@@ -368,7 +368,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.DefaultMetaKeywords)
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-title="DefaultMetaDescription">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.DefaultMetaDescription_OverrideForStore, model => model.SeoSettings.DefaultMetaDescription, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.DefaultMetaDescription)
@@ -378,7 +378,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.DefaultMetaDescription)
                             </div>
                         </div>
-                        <div class="form-group advanced-setting">
+                        <div class="form-group advanced-setting" data-title="GenerateProductMetaDescription">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.GenerateProductMetaDescription_OverrideForStore, model => model.SeoSettings.GenerateProductMetaDescription, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.GenerateProductMetaDescription)
@@ -388,7 +388,7 @@
                                 @Html.ValidationMessageFor(model => model.SeoSettings.GenerateProductMetaDescription)
                             </div>
                         </div>
-                        <div class="form-group advanced-setting">
+                        <div class="form-group advanced-setting" data-title="EnableJsBundling">
                             <div class="col-md-3">
                                 @Html.OverrideStoreCheckboxFor(model => model.SeoSettings.EnableJsBundling_OverrideForStore, model => model.SeoSettings.EnableJsBundling, Model.ActiveStoreScopeConfiguration)
                                 @Html.NopLabelFor(model => model.SeoSettings.EnableJsBundling)
@@ -470,6 +470,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="panel panel-default advanced-setting">
                     <div class="panel-heading">
                         @T("Admin.Configuration.Settings.GeneralCommon.BlockTitle.Security")
@@ -539,6 +540,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="panel panel-default advanced-setting">
                     <div class="panel-heading">
                         @T("Admin.Configuration.Settings.GeneralCommon.BlockTitle.Captcha")

@@ -4,7 +4,7 @@ namespace Nop.Core.Domain.Messages
 {
     /// <summary>
     /// Represents an email item
-    /// 队列中的邮件
+    /// 邮件队列项
     /// </summary>
     public partial class QueuedEmail : BaseEntity
     {

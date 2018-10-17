@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,7 +7,7 @@ namespace Nop.Core.Caching
 {
     /// <summary>
     /// Extensions
-    /// À©Õ¹·½·¨¶ÔICacheManager½øÐÐÀ©Õ¹¡£
+    /// æ‰©å±•æ–¹æ³•å¯¹ICacheManagerè¿›è¡Œæ‰©å±•ã€‚
     /// </summary>
     public static class CacheExtensions
     {

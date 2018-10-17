@@ -1,16 +1,16 @@
-using System;
+ï»¿using System;
 
 namespace Nop.Core.Caching
 {
     /// <summary>
     /// Cache manager interface
-    /// ¶¨ÒåÁËÊı¾İ»º´æ³£ÓÃµÄ·½·¨¡£ 
+    /// å®šä¹‰äº†æ•°æ®ç¼“å­˜å¸¸ç”¨çš„æ–¹æ³•ã€‚ 
     /// </summary>
     public interface ICacheManager : IDisposable
     {
         /// <summary>
         /// Gets or sets the value associated with the specified key.
-        /// ¸ù¾İ»º´æ¹Ø¼ü×Ö»ñµÃ»º´æÄÚÈİ
+        /// æ ¹æ®ç¼“å­˜å…³é”®å­—è·å¾—ç¼“å­˜å†…å®¹
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="key">The key of the value to get.</param>
@@ -19,16 +19,16 @@ namespace Nop.Core.Caching
 
         /// <summary>
         /// Adds the specified key and object to the cache.
-        /// Ìí¼Ó»º´æÄÚÈİ
+        /// æ·»åŠ ç¼“å­˜å†…å®¹
         /// </summary>
         /// <param name="key">key</param>
         /// <param name="data">Data</param>
-        /// <param name="cacheTime">Cache time£¬»º´æÊ±¼ä</param>
+        /// <param name="cacheTime">Cache timeï¼Œç¼“å­˜æ—¶é—´</param>
         void Set(string key, object data, int cacheTime);
 
         /// <summary>
         /// Gets a value indicating whether the value associated with the specified key is cached
-        /// ÅĞ¶ÏÊÇ·ñ»º´æ
+        /// åˆ¤æ–­æ˜¯å¦ç¼“å­˜
         /// </summary>
         /// <param name="key">key</param>
         /// <returns>Result</returns>
@@ -36,21 +36,21 @@ namespace Nop.Core.Caching
 
         /// <summary>
         /// Removes the value with the specified key from the cache
-        /// ÒÆ³ı»º´æ
+        /// ç§»é™¤ç¼“å­˜
         /// </summary>
         /// <param name="key">/key</param>
         void Remove(string key);
 
         /// <summary>
         /// Removes items by pattern
-        /// ÒÆ³ı»º´æ
+        /// ç§»é™¤ç¼“å­˜
         /// </summary>
         /// <param name="pattern">pattern</param>
         void RemoveByPattern(string pattern);
 
         /// <summary>
         /// Clear all cache data
-        /// Çå³ıËùÓĞ»º´æ
+        /// æ¸…é™¤æ‰€æœ‰ç¼“å­˜
         /// </summary>
         void Clear();
     }
